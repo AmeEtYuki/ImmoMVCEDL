@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioButton
@@ -57,9 +58,11 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
         buttonValidate.setOnClickListener {
             GlobalScope.launch(Dispatchers.IO) {
                 insertEDLDetailsEquipement(idReservation, idPiece)
+                addCommentaireGlobalToPiece(idReservation,idPiece)
                 selectedImagePath?.let { imagePath ->
                     addPhotoTo(idPiece, idReservation, imagePath)
                 }
+                finish()
             }
         }
     }
@@ -241,6 +244,38 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
+    private suspend fun addCommentaireGlobalToPiece(idReservation: Int,idPiece: Int) {
+        try {
+            val token = gestionToken.getToken()
+            val url = URL("http://api.immomvc.varin.ovh/?action=addCommentaireGlobalToPiece")
+            val httpURLConnection = url.openConnection() as HttpURLConnection
+            httpURLConnection.requestMethod = "POST"
+            httpURLConnection.setRequestProperty("Content-Type", "application/json")
+
+            val editTextWriteEtatLieuxEntree = findViewById<EditText>(R.id.editTextWriteEtatLieuxEntree)
+            val commentaire = editTextWriteEtatLieuxEntree.text.toString()
+
+            val jsonObject = JSONObject().apply {
+                put("token", token)
+                put("idPiece", idPiece)
+                put("idReservation", idReservation)
+                put("commentaire", commentaire)
+            }
+            println("object commentaire $jsonObject")
+            val outputStream = httpURLConnection.outputStream
+            outputStream.write(jsonObject.toString().toByteArray())
+            outputStream.close()
+
+            val responseCode = httpURLConnection.responseCode
+            println("Response Code Commentaire : $responseCode")
+
+        } catch (e: Exception) {
+            println("Erreur lors de l'ajout du commentaire global à la pièce:")
+            e.printStackTrace()
+        }
+    }
+
 
 
 }
