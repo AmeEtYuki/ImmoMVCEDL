@@ -1,9 +1,14 @@
 package com.example.oioj
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -19,7 +24,9 @@ import java.net.URL
 
 class ELEAWriteDetailsPieces : AppCompatActivity() {
     val notesEquipements = HashMap<Int, Int>()
-
+    companion object {
+        private const val IMAGE_PICK_CODE = 1000
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.wele_write_etat_lieux_piece)
@@ -33,12 +40,19 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
         //Bouton afin de valider l'état des lieux de la pièce.
         val buttonValidate = findViewById<Button>(R.id.buttonValidateWriteEtatLieuxEntree)
 
-        //Recover le piece_id qui nous permettra d'afficher les equipements + inserer
+        //Affichage Equipement
         val idReservation = intent.getIntExtra("idReservation", -1)
         val idPiece = intent.getIntExtra("piece_id",-1)
         GlobalScope.launch(Dispatchers.IO){
             retrieveEquipement(idPiece)
         }
+
+        // Bouton Photo
+        val buttonAddPhoto = findViewById<Button>(R.id.buttonAddPhoto)
+        buttonAddPhoto.setOnClickListener {
+            selectImage()
+        }
+        // valider
         buttonValidate.setOnClickListener {
             GlobalScope.launch(Dispatchers.IO) {
                 insertEDLDetailsEquipement(idReservation, idPiece)
@@ -46,6 +60,37 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
         }
 
     }
+    private fun selectImage() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, IMAGE_PICK_CODE)
+    }
+    private fun getFileName(uri: Uri): String {
+        var result = ""
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val displayName = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                result = it.getString(displayName)
+            }
+        }
+        cursor?.close()
+        return result
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK) {
+            val uri = data?.data
+            uri?.let {
+                val imageName = getFileName(it)
+                println("Nom de l'image sélectionnée : $imageName")
+                findViewById<ImageView>(R.id.imageView).setImageURI(uri)
+
+            }
+        }
+    }
+
 
     private suspend fun retrieveEquipement(idPiece: Int) {
         try {
