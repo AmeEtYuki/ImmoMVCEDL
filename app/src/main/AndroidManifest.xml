@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.oioj">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+
+
+        android:usesCleartextTraffic="true"
+        android:allowBackup="true"
+        android:icon="@drawable/logo_app"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo_app"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Oioj"
+        android:forceDarkAllowed="false">
+
+        <activity android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".DashboardActivity"></activity>
+        <activity android:name=".EtatLieuxEntreeActivity" />
+        <activity android:name=".EtatLieuxSortieActivity"/>
+        <activity android:name=".MesEtatLieuxActivity"/>
+        <activity android:name=".MesLogementsActivity"/>
+        <activity android:name=".MesReservationsActivity"/>
+        <activity android:name=".MonEspaceCompteActivity"/>
+        <activity android:name=".ELEAWriteDetailsPieces"/>
+        <activity android:name=".ELEAWrite"/>
+        <activity android:name=".ELESWrite"/>
+
+
+    </application>
+
+</manifest>

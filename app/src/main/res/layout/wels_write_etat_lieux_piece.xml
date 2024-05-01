@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/PrimaryBackground"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/btnBackMesLogements"
+        android:layout_width="28dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/ic_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@+id/txtTitreWriteEtatLieuxSortie"
+        app:layout_constraintEnd_toStartOf="@+id/txtTitreWriteEtatLieuxSortie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtTitreWriteEtatLieuxSortie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notez les pièces à votre sortie"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/txtWhite"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <!-- Conteneur Scrollable pour les pièces -->
+
+
+    <ScrollView
+        android:id="@+id/scrollViewRooms"
+        android:layout_width="372dp"
+        android:layout_height="304dp"
+        android:background="@drawable/card_border_container"
+        app:layout_constraintBottom_toTopOf="@+id/buttonValidateWriteEtatLieuxSortie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTitreWriteEtatLieuxSortie"
+        app:layout_constraintVertical_bias="0.143">
+
+        <!-- Contenu Dynamique des Pièces -->
+        <LinearLayout
+            android:id="@+id/roomContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/buttonValidateWriteEtatLieuxSortie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/green_button_background"
+        android:text="Valider l'état des pièces"
+        android:textColor="@color/txtWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWriteEtatLieuxSortie" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="4dp"
+        android:text="Commentaire global"
+        android:textColor="@color/txtWhite"
+        app:layout_constraintBottom_toTopOf="@+id/editTextWriteEtatLieuxSortie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewRooms" />
+
+    <EditText
+        android:id="@+id/editTextWriteEtatLieuxSortie"
+        android:layout_width="280dp"
+        android:layout_height="139dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/card_border_container"
+        android:hint="Saisissez votre texte ici"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

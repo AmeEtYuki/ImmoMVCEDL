@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LogImmo</string>
+    <string name="etat_lieux_txt_title">Choisir une réservation</string>
+    <string name="etat_lieux_label_dropdown">Selectionnez une réservation dans la liste ci-dessous</string>
+    <string name="etat_lieux_txt_logement">Informations :</string>
+
+</resources>

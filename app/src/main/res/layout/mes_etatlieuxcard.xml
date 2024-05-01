@@ -1,0 +1,73 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/etatDesLieuxCard"
+        android:layout_width="391dp"
+        android:layout_height="199dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/carddynamic"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtNomLogement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Nom du logement"
+            android:textColor="@color/PrimaryTxtGreen"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtDateEtat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="Date de l'état des lieux : 00/00/00"
+            android:textColor="@color/txtWhite"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/labelCommentaire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Commentaire :"
+            android:textColor="@color/PrimaryTxtGreen"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtCommentaire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="1dp"
+
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            android:textColor="@color/txtWhite"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnVoirDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/green_button_background"
+            android:padding="8dp"
+            android:text="Voir les détails"
+            android:textColor="@color/txtWhite" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

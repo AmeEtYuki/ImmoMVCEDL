@@ -1,0 +1,9 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/PrimaryBackgroundCard" /> <!-- Couleur de fond -->
+    <stroke
+        android:width="3dp"
+        android:color="@color/BorderGreen" />
+    <corners
+        android:radius="8dp" />
+</shape>

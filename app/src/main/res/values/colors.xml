@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="backgroundGris">#404040</color>
+    <color name="YellowTitle">#FFD500</color>
+    <color name="YellowFade">#B2FFEC86</color>
+    <color name="YellowIcon">#FFDE59</color>
+    
+    <color name="PrimaryBackground">#0F110F</color>
+    <color name="PrimaryDYNAMICCard">#1d1f1d</color>
+    <color name="PrimaryBackgroundCard">#141915</color>
+    <color name="PrimaryTxtGreen">#3c6e3d</color>
+
+    <color name="BorderGreen">#13321E</color>
+
+    <color name="ButtonGreen">#4A8F4B</color>
+    <color name="ButtonGreenPressed">#7BA87B</color>
+
+    <color name="ButtonRed">#F33022</color>
+    <color name="ButtonRedPressed">#ED8F88</color>
+
+    <color name="ButtonOrange">#FF9800</color>
+    <color name="ButtonOrangePressed">#ECC284</color>
+
+    <color name="txtWhite">#FEFFFE</color>
+</resources>

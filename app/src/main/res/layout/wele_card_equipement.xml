@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/carddynamic"
+    android:layout_marginBottom="8dp"
+    android:padding="16dp">
+    <TextView
+        android:id="@+id/titleEtatEquipement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Un equipement"
+        android:textColor="@color/txtWhite"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:weightSum="3">
+        <RadioGroup
+            android:id="@+id/buttonGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:weightSum="3">
+
+            <RadioButton
+                android:id="@+id/weleCEbadButton"
+                android:padding="4dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mauvais"
+                android:textColor="@color/txtWhite"
+                android:layout_marginEnd="8dp"
+                android:button="@null"
+                android:background="@drawable/red_button_background"
+                android:textAlignment="center"/>
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="match_parent" />
+
+            <RadioButton
+                android:id="@+id/weleCEmoyenButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="4dp"
+                android:text="Moyen"
+                android:button="@null"
+                android:background="@drawable/orange_button_background"
+                android:textColor="@color/txtWhite"
+                android:layout_marginEnd="8dp"
+                android:textAlignment="center"/>
+
+            <RadioButton
+                android:id="@+id/weleCEbonButton"
+                android:layout_width="0dp"
+                android:padding="4dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:background="@drawable/green_button_background"
+                android:textColor="@color/txtWhite"
+                android:text="Bon"
+                android:textAlignment="center"/>
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+</LinearLayout>

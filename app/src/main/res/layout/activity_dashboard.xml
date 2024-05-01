@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/PrimaryBackground">
+
+    <Button
+        android:id="@+id/btnBackDash"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/logout_icon"
+        app:layout_constraintBottom_toBottomOf="@id/txtTitre"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.103" />
+
+    <TextView
+        android:id="@+id/txtNomUtilisateur"
+        android:layout_width="127dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/PrimaryTxtGreen"
+        android:text="Nom de l'utilisateur"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtProprietaire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Propriétaire"
+        android:textColor="@color/PrimaryTxtGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/txtTitre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
+        android:text="Rédiger état des lieux"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textSize="18dp"
+        android:textColor="@color/txtWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtProprietaire" />
+
+    <Button
+        android:id="@+id/btnEntree"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/entree_icon"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTitre" />
+
+
+    <TextView
+        android:id="@+id/txtEntreeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Entrée"
+        android:textAllCaps="true"
+        android:textColor="@color/txtWhite"
+        android:textSize="12dp"
+        app:layout_constraintTop_toBottomOf="@id/btnEntree"
+        app:layout_constraintStart_toStartOf="@id/btnEntree"
+        app:layout_constraintEnd_toEndOf="@id/btnEntree"
+        android:layout_marginTop="8dp"/>
+
+    <Button
+        android:id="@+id/btnSortie"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/sortie_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical"
+        app:layout_constraintTop_toBottomOf="@id/txtTitre" />
+    <TextView
+        android:id="@+id/txtSortieLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sortie"
+        android:textAllCaps="true"
+        android:textColor="@color/txtWhite"
+        android:textSize="12dp"
+        app:layout_constraintTop_toBottomOf="@id/btnSortie"
+        app:layout_constraintStart_toStartOf="@id/btnSortie"
+        app:layout_constraintEnd_toEndOf="@id/btnSortie"
+        android:layout_marginTop="8dp"/>
+
+    <!-- La ligne de séparation verticale -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/txtTitreAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Mon Espace"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textSize="18dp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnEntree" />
+
+    <Button
+        android:id="@+id/btnVoirLogements"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/logement_icon"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTitreAccount" />
+
+    <TextView
+        android:id="@+id/txtLogementsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MES LOGEMENTS"
+        android:textAllCaps="true"
+        android:textColor="@color/txtWhite"
+        android:textSize="12dp"
+        app:layout_constraintTop_toBottomOf="@id/btnVoirLogements"
+        app:layout_constraintStart_toStartOf="@id/btnVoirLogements"
+        app:layout_constraintEnd_toEndOf="@id/btnVoirLogements"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <Button
+        android:id="@+id/btnVoirReservations"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/reservation_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline_vertical"
+        app:layout_constraintTop_toBottomOf="@id/txtTitreAccount" />
+    <TextView
+        android:id="@+id/txtReservationsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MES RESERVATIONS"
+        android:textAllCaps="true"
+        android:textColor="@color/txtWhite"
+        android:textSize="12dp"
+        app:layout_constraintTop_toBottomOf="@id/btnVoirReservations"
+        app:layout_constraintStart_toStartOf="@id/btnVoirReservations"
+        app:layout_constraintEnd_toEndOf="@id/btnVoirReservations"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <Button
+        android:id="@+id/btnMonCompte"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/account_icon"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnVoirLogements" />
+
+    <TextView
+        android:id="@+id/txtCompteLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MON COMPTE"
+        android:textAllCaps="true"
+        android:textColor="@color/txtWhite"
+        android:textSize="12dp"
+        app:layout_constraintTop_toBottomOf="@id/btnMonCompte"
+        app:layout_constraintStart_toStartOf="@id/btnMonCompte"
+        app:layout_constraintEnd_toEndOf="@id/btnMonCompte"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <Button
+        android:id="@+id/btnVoirEtatsLieux"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/etatlieu_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toEndOf="@+id/guideline_vertical"
+        app:layout_constraintTop_toBottomOf="@id/btnVoirReservations" />
+
+    <TextView
+        android:id="@+id/txtMesEtatsLieuxLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MES ETATS DES LIEUX"
+        android:textAllCaps="true"
+        android:textColor="@color/txtWhite"
+        android:textSize="12dp"
+        app:layout_constraintTop_toBottomOf="@id/btnVoirEtatsLieux"
+        app:layout_constraintStart_toStartOf="@id/btnVoirEtatsLieux"
+        app:layout_constraintEnd_toEndOf="@id/btnVoirEtatsLieux"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
