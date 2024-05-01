@@ -30,6 +30,10 @@ class EtatLieuxSortieActivity : AppCompatActivity() {
             retrieveReservations()
         }
     }
+
+    private fun insertEDLDetailsEquipement(idReservation: Int, idPiece: Int) {
+
+    }
     private suspend fun retrieveReservations() {
         return withContext(Dispatchers.IO) {
             try {
@@ -53,7 +57,6 @@ class EtatLieuxSortieActivity : AppCompatActivity() {
                 println("Response Code: $responseCode")
 
                 if (responseCode == HttpURLConnection.HTTP_OK) {
-
                     val inputStream = httpURLConnection.inputStream
                     val response = inputStream.bufferedReader().use { it.readText() }
                     val jsonArray = JSONArray(response)
@@ -69,7 +72,9 @@ class EtatLieuxSortieActivity : AppCompatActivity() {
                         val id_periodeDispo = reservation.getInt("id_periodeDispo")
                         val dateDebut = reservation.getString("dateDebut")
                         val dateFin = reservation.getString("dateFin")
-                        val valide = reservation.getInt("valide") == 1
+                        //val valide = reservation.getInt("valide") == 1
+                        val rue = reservation.getString("rue")
+                        val idBien = reservation.getInt("idBien")
                         val id_locataire = reservation.getInt("id_locataire")
                         println(id)
                         //
@@ -78,7 +83,7 @@ class EtatLieuxSortieActivity : AppCompatActivity() {
                         println("   ID période de disponibilité : $id_periodeDispo")
                         println("   Date de début : $dateDebut")
                         println("   Date de fin : $dateFin")
-                        println("   Valide : $valide")
+                        //println("   Valide : $valide")
                         println("   ID locataire : $id_locataire")
 
                         runOnUiThread {
@@ -89,17 +94,20 @@ class EtatLieuxSortieActivity : AppCompatActivity() {
                             // Récupérer les TextViews et Button de wele_card_pick_card.xml
                             val txtNomLogement = reservationLayout.findViewById<TextView>(R.id.txtNomLogementpc)
                             val dateReservationLogement = reservationLayout.findViewById<TextView>(R.id.dateReservationLogement)
+                            val txtRue = reservationLayout.findViewById<TextView>(R.id.txtRue)
 
                             val btnEtatLieux = reservationLayout.findViewById<Button>(R.id.supabutton)
 
                             btnEtatLieux.setOnClickListener{
                                 val intent = Intent(this@EtatLieuxSortieActivity, ELESWrite::class.java)
                                 intent.putExtra("logement_id", id)
+                                intent.putExtra("bien_id", idBien)
                                 startActivity(intent)
                             }
 
-                            txtNomLogement.text = "Logement $id"
+                            txtNomLogement.text = "Logement $idBien"
                             dateReservationLogement.text = "$dateDebut au $dateFin"
+                            txtRue.text = "$rue"
                             containerReservations.addView(reservationLayout)
                         }
                     }

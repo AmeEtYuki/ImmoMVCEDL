@@ -30,6 +30,7 @@
         <activity android:name=".MesReservationsActivity"/>
         <activity android:name=".MonEspaceCompteActivity"/>
         <activity android:name=".ELEAWriteDetailsPieces"/>
+        <activity android:name=".ELESWriteDetailsPieces"/>
         <activity android:name=".ELEAWrite"/>
         <activity android:name=".ELESWrite"/>
 

@@ -34,6 +34,7 @@
         android:textColorHint="@color/edit_text_color_selector"
         android:hint="Email utilisateur"
         android:textAlignment="center"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -48,6 +49,7 @@
         android:hint="Mot de passe utilisateur"
         android:inputType="textPassword"
         android:textAlignment="center"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
