@@ -137,6 +137,7 @@ class ELEAWrite : AppCompatActivity() {
                                 intent.putExtra("piece_id", pieceId)
                                 intent.putExtra("idReservation", idReservation)
                                 intent.putExtra("idBien", idBien)
+                                intent.putExtra("libelle", libelle)
                                 startActivity(intent)
                             }
                         }

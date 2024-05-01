@@ -84,6 +84,11 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
                     println("   Libellé : $libelle")
 
                     runOnUiThread {
+
+                        val libellePiece = intent.getStringExtra("libelle")
+                        val textViewCommentaire = findViewById<TextView>(R.id.txtTitreWriteEtatLieuxEntree);
+                        textViewCommentaire.text = "Pièce en cours : $libellePiece"
+
                         val equipementLayout = LayoutInflater.from(this@ELEAWriteDetailsPieces).inflate(R.layout.wele_card_equipement, containerEquipements, false)
                         val txtTitleEquipement = equipementLayout.findViewById<TextView>(R.id.titleEtatEquipement)
                         txtTitleEquipement.text = libelle
@@ -110,7 +115,6 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
                         buttonGroup.addView(buttonMauvais)
                         buttonGroup.addView(buttonMoyen)
                         buttonGroup.addView(buttonBon)
-
 
                         buttonGroup.setOnCheckedChangeListener { group, checkedId ->
                             val selectedButton = findViewById<RadioButton>(checkedId)
@@ -165,6 +169,8 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
             }
         }
     }
+
+
 }
 
 

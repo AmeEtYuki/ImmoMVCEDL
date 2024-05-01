@@ -35,8 +35,8 @@
 
     <ScrollView
         android:id="@+id/scrollViewEquipements"
-        android:layout_width="376dp"
-        android:layout_height="308dp"
+        android:layout_width="366dp"
+        android:layout_height="196dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonValidateWriteEtatLieuxEntree"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,25 +52,16 @@
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/buttonValidateWriteEtatLieuxEntree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/green_button_background"
-        android:text="Valider l'état des pièces"
-        android:textColor="@color/txtWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextWriteEtatLieuxEntree" />
+
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewCommentaire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="4dp"
-        android:text="Commentaire global"
+        android:textSize="20sp"
+        android:text="Commentaire global sur la Pièce"
         android:textColor="@color/txtWhite"
         app:layout_constraintBottom_toTopOf="@+id/editTextWriteEtatLieuxEntree"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,9 +70,8 @@
 
     <EditText
         android:id="@+id/editTextWriteEtatLieuxEntree"
-        android:layout_width="280dp"
-        android:layout_height="139dp"
-
+        android:layout_width="323dp"
+        android:layout_height="71dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/card_border_container"
         android:hint="Saisissez votre texte ici"
@@ -89,6 +79,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewCommentaire" />
 
+    <Button
+        android:id="@+id/buttonAddPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/green_button_background"
+        android:padding="6dp"
+        android:textColor="@color/txtWhite"
+        android:text="Ajouter une photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWriteEtatLieuxEntree" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/photoRecyclerView"
+        android:layout_width="253dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAddPhoto" />
+
+    <Button
+        android:id="@+id/buttonValidateWriteEtatLieuxEntree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:padding="6dp"
+        android:background="@drawable/green_button_background"
+        android:text="Valider l'état des pièces"
+        android:textColor="@color/txtWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/photoRecyclerView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
