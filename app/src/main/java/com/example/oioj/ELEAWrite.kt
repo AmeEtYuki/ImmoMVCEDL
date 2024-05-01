@@ -136,6 +136,7 @@ class ELEAWrite : AppCompatActivity() {
                                 val intent = Intent(this@ELEAWrite, ELEAWriteDetailsPieces::class.java)
                                 intent.putExtra("piece_id", pieceId)
                                 intent.putExtra("idReservation", idReservation)
+                                intent.putExtra("idBien", idBien)
                                 startActivity(intent)
                             }
                         }
