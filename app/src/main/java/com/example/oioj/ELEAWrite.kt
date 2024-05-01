@@ -30,9 +30,10 @@ class ELEAWrite : AppCompatActivity() {
 
         // Ici on récupère le logement ID qu'on a envoyer sur la page ETAT LIEUX ENTREE ACTIVITY
         val idReservation = intent.getIntExtra("reservation_id",-1)
+        val idBien = intent.getIntExtra("bien_id", -1)
 
         GlobalScope.launch(Dispatchers.Main){
-            retrievePieces(idReservation);
+            retrievePieces(idBien,idReservation);
         }
 
         val buttonValidate = findViewById<Button>(R.id.buttonValidateWriteEtatLieuxEntree)
@@ -75,9 +76,10 @@ class ELEAWrite : AppCompatActivity() {
         }
     }
 
-    private suspend fun retrievePieces(logementId: Int){
+    private suspend fun retrievePieces(idBien: Int, idReservation: Int){
         return withContext(Dispatchers.IO){
             try{
+
                 val token = gestionToken.getToken()
                 val url = URL("http://api.immomvc.varin.ovh/?action=piece")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
@@ -85,8 +87,9 @@ class ELEAWrite : AppCompatActivity() {
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")
                 val jsonObject = JSONObject().apply {
                     put("token", token)
-                    put("idBien", logementId)
+                    put("idBien", idBien)
                 }
+                println("logement id = $idBien")
                 val outputStream = httpURLConnection.outputStream
                 outputStream.write(jsonObject.toString().toByteArray())
                 outputStream.close()
@@ -132,6 +135,7 @@ class ELEAWrite : AppCompatActivity() {
                                 val pieceId = it.tag as Int
                                 val intent = Intent(this@ELEAWrite, ELEAWriteDetailsPieces::class.java)
                                 intent.putExtra("piece_id", pieceId)
+                                intent.putExtra("idReservation", idReservation)
                                 startActivity(intent)
                             }
                         }
