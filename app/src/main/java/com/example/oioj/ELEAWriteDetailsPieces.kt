@@ -43,6 +43,7 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
         val buttonValidate = findViewById<Button>(R.id.buttonValidateWriteEtatLieuxEntree)
 
         //Affichage Equipement
+        val idBien = intent.getIntExtra("idBien",-1)
         val idReservation = intent.getIntExtra("idReservation", -1)
         val idPiece = intent.getIntExtra("piece_id",-1)
         GlobalScope.launch(Dispatchers.IO){
@@ -62,7 +63,10 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
                 selectedImagePath?.let { imagePath ->
                     addPhotoTo(idPiece, idReservation, imagePath)
                 }
-                finish()
+                val intent = Intent(this@ELEAWriteDetailsPieces, ELEAWrite::class.java)
+                intent.putExtra("reservation_id", idReservation)
+                intent.putExtra("bien_id", idBien)
+                startActivity(intent)
             }
         }
     }
