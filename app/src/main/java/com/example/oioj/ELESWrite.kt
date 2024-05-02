@@ -54,7 +54,7 @@ class ELESWrite : AppCompatActivity() {
         return withContext(Dispatchers.IO){
             try{
                 val token = gestionToken.getToken()
-                val url = URL("http://api.immomvc.varin.ovh/?action=InsertEDLentree") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
+                val url = URL("https://api.immomvc.varin.ovh/?action=InsertEDLsortie") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")
