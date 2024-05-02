@@ -4,11 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONArray
+import org.json.JSONObject
+import java.net.HttpURLConnection
+import java.net.URL
 
 class MonEspaceCompteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,20 +25,44 @@ class MonEspaceCompteActivity : AppCompatActivity() {
             val redirection = Intent(this, DashboardActivity::class.java)
             startActivity(redirection)
         }
-        //interface
-        val blocChamps = findViewById<ConstraintLayout>(R.id.leMenu)
-        val lyo = LayoutInflater.from(this@MonEspaceCompteActivity).inflate(R.layout.es_card_infpers, blocChamps, false)
-        blocChamps.addView(lyo)
-        GlobalScope.launch {
 
+        GlobalScope.launch (Dispatchers.IO) {
+            chargerInfos()
         }
     }
     private suspend fun chargerInfos() {
         return withContext(Dispatchers.IO) {
             try {
-                //récupération des informations 
+                //récupération des informations du compte
+                val token = gestionToken.getToken()
+                val url = URL("https://api.immomvc.varin.ovh/?action=getAccountInfos") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
+                val httpURLConnection = url.openConnection() as HttpURLConnection
+                httpURLConnection.requestMethod = "POST"
+                httpURLConnection.setRequestProperty("Content-Type", "application/json")
+
+                // Envoi du token
+                val jsonObject = JSONObject().apply {
+                    put("token", token)
+                }
+                val outputStream = httpURLConnection.outputStream
+                outputStream.write(jsonObject.toString().toByteArray())
+                outputStream.close()
+                val responseCode = httpURLConnection.responseCode
+                println("Récupération des informations du compte : $responseCode")
+                if(responseCode == HttpURLConnection.HTTP_OK) {
+                    val inputStream = httpURLConnection.inputStream
+                    val reponse = inputStream.bufferedReader().use { it.readText() }
+                    println("Les données récupérées : \n $reponse")
+                    val leCompte = JSONObject(reponse)
+                    val blocChamps = findViewById<ConstraintLayout>(R.id.leMenu)
+                    val lyo = LayoutInflater.from(this@MonEspaceCompteActivity).inflate(R.layout.es_card_infpers, blocChamps, false)
+                    lyo.findViewById<EditText>(R.id.editEmailUtilisateurEspaceCompte).setText(leCompte.getString("login"))
+                    blocChamps.addView(lyo)
+
+                }
             } catch (e: Exception) {
-                println("Erreur lors de l'insertion de l'état des lieux:  ${e.message}")
+                println("Erreur lors de la récupération des informations :  ${e.message}" +
+                        "${e.printStackTrace()}")
             }
         }
     }
