@@ -1,9 +1,15 @@
 package com.example.oioj
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -19,7 +25,10 @@ import java.net.URL
 
 class ELEAWriteDetailsPieces : AppCompatActivity() {
     val notesEquipements = HashMap<Int, Int>()
-
+    private var selectedImagePath: String? = null
+    companion object {
+        private const val IMAGE_PICK_CODE = 1000
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.wele_write_etat_lieux_piece)
@@ -33,20 +42,60 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
         //Bouton afin de valider l'état des lieux de la pièce.
         val buttonValidate = findViewById<Button>(R.id.buttonValidateWriteEtatLieuxEntree)
 
-        //Recover le piece_id qui nous permettra d'afficher les equipements + inserer
+        //Affichage Equipement
         val idReservation = intent.getIntExtra("idReservation", -1)
         val idPiece = intent.getIntExtra("piece_id",-1)
         GlobalScope.launch(Dispatchers.IO){
             retrieveEquipement(idPiece)
         }
+
+        // Bouton Photo
+        val buttonAddPhoto = findViewById<Button>(R.id.buttonAddPhoto)
+        buttonAddPhoto.setOnClickListener {
+            selectImage()
+        }
+        // valider
         buttonValidate.setOnClickListener {
             GlobalScope.launch(Dispatchers.IO) {
                 insertEDLDetailsEquipement(idReservation, idPiece)
+                addCommentaireGlobalToPiece(idReservation,idPiece)
+                selectedImagePath?.let { imagePath ->
+                    addPhotoTo(idPiece, idReservation, imagePath)
+                }
+                finish()
             }
         }
-
     }
 
+    private fun selectImage() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, IMAGE_PICK_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK) {
+            val uri = data?.data
+            uri?.let {
+                selectedImagePath = getRealPathFromURI(uri)
+                println("Chemin de l'image sélectionnée : $selectedImagePath")
+                findViewById<ImageView>(R.id.imageView).setImageURI(uri)
+            }
+        }
+    }
+    private fun getRealPathFromURI(uri: Uri): String? {
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        return cursor?.use {
+            it.moveToFirst()
+            val columnIndex = it.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            if (columnIndex == -1) {
+                null
+            } else {
+                it.getString(columnIndex)
+            }
+        }
+    }
     private suspend fun retrieveEquipement(idPiece: Int) {
         try {
             val token = gestionToken.getToken()
@@ -169,6 +218,64 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
             }
         }
     }
+    private suspend fun addPhotoTo(idPiece: Int, idReservation: Int, imagePath: String) {
+        try {
+            val token = gestionToken.getToken()
+            val url = URL("http://api.immomvc.varin.ovh/?action=addPhotoWELEEntree")
+            val httpURLConnection = url.openConnection() as HttpURLConnection
+            httpURLConnection.requestMethod = "POST"
+            httpURLConnection.setRequestProperty("Content-Type", "application/json")
+            val jsonObject = JSONObject().apply {
+                put("token", token)
+                put("idPiece", idPiece)
+                put("idReservation", idReservation)
+                put("chemin", imagePath)
+            }
+            println(jsonObject)
+            val outputStream = httpURLConnection.outputStream
+            outputStream.write(jsonObject.toString().toByteArray())
+            outputStream.close()
+
+            val responseCode = httpURLConnection.responseCode
+            println("Response Code: $responseCode")
+
+        } catch (e: Exception) {
+            println("Erreur lors de l'ajout de la photo à la pièce d'entrée:")
+            e.printStackTrace()
+        }
+    }
+
+    private suspend fun addCommentaireGlobalToPiece(idReservation: Int,idPiece: Int) {
+        try {
+            val token = gestionToken.getToken()
+            val url = URL("http://api.immomvc.varin.ovh/?action=addCommentaireGlobalToPiece")
+            val httpURLConnection = url.openConnection() as HttpURLConnection
+            httpURLConnection.requestMethod = "POST"
+            httpURLConnection.setRequestProperty("Content-Type", "application/json")
+
+            val editTextWriteEtatLieuxEntree = findViewById<EditText>(R.id.editTextWriteEtatLieuxEntree)
+            val commentaire = editTextWriteEtatLieuxEntree.text.toString()
+
+            val jsonObject = JSONObject().apply {
+                put("token", token)
+                put("idPiece", idPiece)
+                put("idReservation", idReservation)
+                put("commentaire", commentaire)
+            }
+            println("object commentaire $jsonObject")
+            val outputStream = httpURLConnection.outputStream
+            outputStream.write(jsonObject.toString().toByteArray())
+            outputStream.close()
+
+            val responseCode = httpURLConnection.responseCode
+            println("Response Code Commentaire : $responseCode")
+
+        } catch (e: Exception) {
+            println("Erreur lors de l'ajout du commentaire global à la pièce:")
+            e.printStackTrace()
+        }
+    }
+
 
 
 }
