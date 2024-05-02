@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -45,6 +46,7 @@
             android:id="@+id/editEmailUtilisateurEspaceCompte"
             android:layout_width="225dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_below="@id/emailUtilisateurEspaceCompte"
             android:background="@drawable/input_border"
             android:hint="Saisir l'email de l'utilisateur"
@@ -83,7 +85,7 @@
             android:layout_width="225dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/mdpUtilisateurEspaceCompte"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/input_border"
             android:hint="Saisir le mdp de l'utilisateur"
             android:inputType="textEmailAddress"
@@ -106,8 +108,8 @@
             android:id="@+id/numeroTelephoneEspaceCompte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btnModifierMdpUtilisateurEspaceCompte"
-            android:layout_marginTop="40dp"
+            android:layout_below="@id/editMdpUtilisateurEspaceCompteConfirm"
+            android:layout_marginTop="15dp"
             android:text="Numéro de téléphone"
             android:textColor="@color/txtWhite"
             android:textSize="18sp" />
@@ -145,7 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/btnModifierNumeroTelephoneEspaceCompte"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="15dp"
             android:text="Nom"
             android:textColor="@color/txtWhite"
             android:textSize="18sp" />
@@ -208,13 +210,14 @@
             android:id="@+id/editMdpUtilisateurEspaceCompteConfirm"
             android:layout_width="225dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/mdpUtilisateurEspaceCompte"
-            android:layout_marginTop="91dp"
+            android:layout_below="@id/editMdpUtilisateurEspaceCompte"
+            android:layout_marginTop="8dp"
             android:background="@drawable/input_border"
             android:hint="Confirmez le mot de passe"
             android:inputType="textEmailAddress"
             android:padding="5dp"
             android:textColorHint="@color/PrimaryTxtGreen" />
+
 
         <Button
             android:id="@+id/btnModifierMdpUtilisateurEspaceCompte"
@@ -222,8 +225,8 @@
             android:layout_height="34dp"
             android:layout_below="@id/mdpUtilisateurEspaceCompte"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="91dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="8dp"
             android:layout_toEndOf="@+id/editMdpUtilisateurEspaceCompteConfirm"
@@ -232,18 +235,47 @@
             android:text="Modifier"
             android:textColor="@color/txtWhite" />
 
+        <TextView
+            android:id="@+id/txtConfirmEspaceCompte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editPrenomEspaceCompte"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="Confirmez le changement"
+            android:textColor="@color/txtWhite"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/mdpActuel"
             android:layout_width="225dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/editPrenomEspaceCompte"
-            android:layout_marginTop="24dp"
+            android:layout_below="@id/txtConfirmEspaceCompte"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
             android:background="@drawable/input_border"
             android:hint="Votre mdp actuel"
             android:inputType="textEmailAddress"
             android:padding="5dp"
             android:textColorHint="@color/PrimaryTxtGreen" />
+
+        <Button
+            android:id="@+id/btnConfirmChangeES"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_below="@id/mdpActuel"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/green_button_background"
+            android:padding="5dp"
+            android:text="CONFIRMER"
+            android:textColor="@color/txtWhite" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
