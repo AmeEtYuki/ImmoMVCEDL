@@ -54,10 +54,12 @@ class MonEspaceCompteActivity : AppCompatActivity() {
                     val reponse = inputStream.bufferedReader().use { it.readText() }
                     println("Les données récupérées : \n $reponse")
                     val leCompte = JSONObject(reponse)
-                    val blocChamps = findViewById<ConstraintLayout>(R.id.leMenu)
-                    val lyo = LayoutInflater.from(this@MonEspaceCompteActivity).inflate(R.layout.es_card_infpers, blocChamps, false)
-                    lyo.findViewById<EditText>(R.id.editEmailUtilisateurEspaceCompte).setText(leCompte.getString("login"))
-                    blocChamps.addView(lyo)
+                    withContext(Dispatchers.Main) {
+                        val blocChamps = findViewById<ConstraintLayout>(R.id.leMenu)
+                        val lyo = LayoutInflater.from(this@MonEspaceCompteActivity).inflate(R.layout.es_card_infpers, blocChamps, false)
+                        lyo.findViewById<EditText>(R.id.editEmailUtilisateurEspaceCompte).setText(leCompte.getString("login"))
+                        blocChamps.addView(lyo)
+                    }
 
                 }
             } catch (e: Exception) {
