@@ -36,7 +36,6 @@ class MesLogementsActivity : AppCompatActivity() {
         return withContext(Dispatchers.IO) {
             try {
                 val token = gestionToken.getToken()
-                println("Le token retrouvé page logement est : $token")
                 val url = URL("http://api.immomvc.varin.ovh/?action=bien")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
