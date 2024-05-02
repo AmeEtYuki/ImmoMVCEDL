@@ -34,10 +34,6 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
         setContentView(R.layout.wele_write_etat_lieux_piece)
 
         //Bouton Back, redirection page precedente
-        val btnBackMesReservations = findViewById<Button>(R.id.btnBackMesLogements)
-        btnBackMesReservations.setOnClickListener {
-            onBackPressed()
-        }
 
         //Bouton afin de valider l'état des lieux de la pièce.
         val buttonValidate = findViewById<Button>(R.id.buttonValidateWriteEtatLieuxEntree)
@@ -55,6 +51,8 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
         buttonAddPhoto.setOnClickListener {
             selectImage()
         }
+        val nomValue = intent.getStringExtra("nom")
+        val prenomValue = intent.getStringExtra("prenom")
         // valider
         buttonValidate.setOnClickListener {
             GlobalScope.launch(Dispatchers.IO) {
@@ -66,8 +64,11 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
                 val intent = Intent(this@ELEAWriteDetailsPieces, ELEAWrite::class.java)
                 intent.putExtra("reservation_id", idReservation)
                 intent.putExtra("bien_id", idBien)
+                intent.putExtra("nom", nomValue)
+                intent.putExtra("prenom", prenomValue)
                 startActivity(intent)
             }
+
         }
     }
 

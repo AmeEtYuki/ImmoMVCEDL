@@ -7,17 +7,6 @@
     android:background="@color/PrimaryBackground"
     android:padding="16dp">
 
-    <Button
-        android:id="@+id/btnBackMesLogementsEntree"
-        android:layout_width="28dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/ic_arrow_back"
-        app:layout_constraintBottom_toBottomOf="@+id/txtTitreWriteEtatLieuxEntree"
-        app:layout_constraintEnd_toStartOf="@+id/txtTitreWriteEtatLieuxEntree"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/txtTitreWriteEtatLieuxEntree"
         android:layout_width="wrap_content"

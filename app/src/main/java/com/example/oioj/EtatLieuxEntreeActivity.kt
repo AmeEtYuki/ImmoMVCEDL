@@ -18,17 +18,19 @@ import java.net.URL
 
 class EtatLieuxEntreeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val nomValue = intent.getStringExtra("nom")
+        val prenomValue = intent.getStringExtra("prenom")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.wele_etat_lieux_entree)
-
+        val token = intent.getStringExtra("apiReponse")
         // Récupération du bouton de retour et déclaration du listener
         val btnBack = findViewById<Button>(R.id.btnBack)
-
         btnBack.setOnClickListener {
-            onBackPressed()
+            val redirection = Intent(this, DashboardActivity::class.java)
+            startActivity(redirection)
         }
 
-        // Appel de la fonction pour récupérer les réservations
+        // Appel de la fonction pour récupérer cles réservations
         GlobalScope.launch(Dispatchers.Main) {
             retrieveReservations()
         }
@@ -86,12 +88,15 @@ class EtatLieuxEntreeActivity : AppCompatActivity() {
                             val dateReservationLogement = reservationLayout.findViewById<TextView>(R.id.dateReservationLogement)
                             val txtRue = reservationLayout.findViewById<TextView>(R.id.txtRue)
 
+                            val nomValue = intent.getStringExtra("nom")
+                            val prenomValue = intent.getStringExtra("prenom")
                             val btnEtatLieux = reservationLayout.findViewById<Button>(R.id.supabutton)
-
                             btnEtatLieux.setOnClickListener{
                                 val intent = Intent(this@EtatLieuxEntreeActivity, ELEAWrite::class.java)
                                 intent.putExtra("reservation_id", id)
                                 intent.putExtra("bien_id", idBien)
+                                intent.putExtra("nom", nomValue)
+                                intent.putExtra("prenom", prenomValue)
                                 startActivity(intent)
                             }
 

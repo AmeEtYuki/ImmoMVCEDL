@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -24,27 +25,50 @@ class ELEAWrite : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.wele_write_etat_lieux_entree)
 
-        val btnBackMesReservations = findViewById<Button>(R.id.btnBackMesLogementsEntree);
-        btnBackMesReservations.setOnClickListener {
-            onBackPressed()
-        }
-
-        // Ici on récupère le logement ID qu'on a envoyer sur la page ETAT LIEUX ENTREE ACTIVITY
+             // Ici on récupère le logement ID qu'on a envoyer sur la page ETAT LIEUX ENTREE ACTIVITY
         val idReservation = intent.getIntExtra("reservation_id",-1)
         val idBien = intent.getIntExtra("bien_id", -1)
-
         GlobalScope.launch(Dispatchers.Main){
             retrievePieces(idBien,idReservation)
         }
-
+        val nomValue = intent.getStringExtra("nom")
+        val prenomValue = intent.getStringExtra("prenom")
+        val token = gestionToken.getToken()
         val buttonValidate = findViewById<Button>(R.id.buttonValidateWriteEtatLieuxEntree)
         buttonValidate.setOnClickListener {
             val editTextWriteEtatLieuxEntree =
                 findViewById<EditText>(R.id.editTextWriteEtatLieuxEntree)
             val userText = editTextWriteEtatLieuxEntree.text.toString()
-            GlobalScope.launch(Dispatchers.IO) {
-                insertEDLGlobalDuLogement(idReservation, userText)
+            val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog)
+            builder.setTitle("Confirmation")
+            builder.setMessage("Etat des lieux de la pièces réalisé avec succès ! ")
+            builder.setPositiveButton("OK") { dialog, which ->
+                GlobalScope.launch(Dispatchers.IO) {
+                    try {
+                        insertEDLGlobalDuLogement(idReservation, userText)
+                        withContext(Dispatchers.Main) {
+                            val intent = Intent(this@ELEAWrite, EtatLieuxEntreeActivity::class.java)
+                            val jsonObject = JSONObject().apply {
+                                put("token", token)
+
+                            }
+                            val jsonString = jsonObject.toString()
+                            intent.putExtra("nom", nomValue)
+                            intent.putExtra("prenom", prenomValue)
+                            intent.putExtra("apiReponse", jsonString)
+                            startActivity(intent)
+                        }
+                    } catch (e: Exception) {
+                        println("Erreur lors de l'insertion de l'état des lieux: ${e.message}")
+                    }
+                }
+                dialog.dismiss()
             }
+            builder.setNegativeButton("Annuler") { dialog, which ->
+                dialog.dismiss()
+            }
+            val dialog = builder.create()
+            dialog.show()
         }
     }
 
