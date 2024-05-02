@@ -174,7 +174,6 @@ class ELEAWrite : AppCompatActivity() {
                         val response = inputStream.bufferedReader().use { it.readText() }
                         val responseInt = response.trim().toInt()
                         runOnUiThread {
-                            val textViewId = getTextViewId(idPiece)
                             val containerPieces = findViewById<LinearLayout>(R.id.roomContainer)
                             val pieceLayout = containerPieces.findViewById<View>(idPiece)
                             val textViewSituationPiece = pieceLayout?.findViewWithTag<TextView>("situationPieceWele$idPiece")
@@ -197,8 +196,5 @@ class ELEAWrite : AppCompatActivity() {
                 println("Erreur lors de la récupération des pièces avec EDL déjà  fait:  ${e.message}")
             }
         }
-    }
-    private fun getTextViewId(pieceId: Int): Int {
-        return resources.getIdentifier("situationPieceWele$pieceId", "id", packageName)
     }
 }
