@@ -1,22 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/reservationsCard"
+        android:id="@+id/reservationsCardMR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical"
-        android:padding="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/carddynamic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,24 +21,24 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtNumReservation"
+                android:id="@+id/titleCardMR"
                 android:layout_width="203dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:text="Numero+Nom du logement"
+                android:textColor="@color/txtWhite"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/txtWhite" />
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/dateReservationLogement"
+                android:id="@+id/dateReservationMR"
                 android:layout_width="116dp"
                 android:layout_height="36dp"
                 android:text="00/00/00 au 00/00/20"
+                android:textColor="@color/txtWhite"
                 android:textSize="16sp"
-                android:textStyle="italic"
-                android:textColor="@color/txtWhite" />
+                android:textStyle="italic" />
 
         </LinearLayout>
 
@@ -53,47 +49,50 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtCodePostal"
+                android:id="@+id/txtCodePostalMR"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_location"
                 android:drawablePadding="8dp"
                 android:text="55000"
-                android:textSize="16sp"
-                android:textColor="@color/txtWhite" />
+                android:textColor="@color/txtWhite"
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/txtRue"
+                android:id="@+id/txtRueMR"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
                 android:text="18 rue des mimosas"
-                android:textSize="16sp"
-                android:textColor="@color/txtWhite" />
+                android:textColor="@color/txtWhite"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/nomClient"
+            android:id="@+id/nomClientMR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="8dp"
             android:text="Nom Client de la réservation"
-            android:textSize="16sp"
-            android:textColor="@color/txtWhite" />
+            android:textColor="@color/txtWhite"
+            android:textSize="16sp" />
 
         <Button
-            android:id="@+id/supabutton"
+            android:id="@+id/confirmBtnMR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:padding="5dp"
             android:background="@drawable/green_button_background"
+            android:padding="5dp"
             android:text="Voir la réservation"
             android:textColor="@color/txtWhite" />
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Vous pouvez ajouter d'autres cartes de réservation ici ou terminer la mise en page -->
+
+</LinearLayout>
