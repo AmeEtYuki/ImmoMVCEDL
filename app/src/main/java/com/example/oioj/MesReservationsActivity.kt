@@ -48,7 +48,6 @@ class MesReservationsActivity : AppCompatActivity() {
                 outputStream.write(jsonObject.toString().toByteArray())
                 outputStream.close()
                 val responseCode = httpURLConnection.responseCode
-                println("Response Code: $responseCode")
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     val inputStream = httpURLConnection.inputStream
                     val response = inputStream.bufferedReader().use { it.readText() }
