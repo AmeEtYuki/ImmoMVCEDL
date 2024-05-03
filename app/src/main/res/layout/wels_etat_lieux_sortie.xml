@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textColor="@color/PrimaryTxtGreen"
-        android:text="Seulement les réservations avec un état des lieux d'entrée déjà rédigé sont visibles"
+        android:text="Seulement les états des lieux de sorties non réalisés sont visibles"
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

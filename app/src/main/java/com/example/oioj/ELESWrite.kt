@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -21,33 +22,54 @@ import java.net.URL
 
 class ELESWrite : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.wels_write_etat_lieux_sortie)
-        val btnBackMesReservations = findViewById<Button>(R.id.btnBackMesLogements)
+        setContentView(R.layout.wele_write_etat_lieux_entree)
 
-        btnBackMesReservations.setOnClickListener{
-            val redirection = Intent(this, DashboardActivity::class.java)
-            startActivity(redirection)
-        }
-
+        // Ici on récupère le logement ID qu'on a envoyer sur la page ETAT LIEUX ENTREE ACTIVITY
         val idReservation = intent.getIntExtra("reservation_id",-1)
         val idBien = intent.getIntExtra("bien_id", -1)
-
         GlobalScope.launch(Dispatchers.Main){
-            retrievePieces(idBien,idReservation);
+            retrievePieces(idBien,idReservation)
         }
-
-        /*val buttonValidate = findViewById<Button>(R.id.buttonValidateWriteEtatLieuxEntree)
+        val nomValue = intent.getStringExtra("nom")
+        val prenomValue = intent.getStringExtra("prenom")
+        val token = gestionToken.getToken()
+        val buttonValidate = findViewById<Button>(R.id.buttonValidateWriteEtatLieuxEntree)
         buttonValidate.setOnClickListener {
             val editTextWriteEtatLieuxEntree =
                 findViewById<EditText>(R.id.editTextWriteEtatLieuxEntree)
             val userText = editTextWriteEtatLieuxEntree.text.toString()
-            println("Texte saisi par l'utilisateur : $userText")
-            GlobalScope.launch(Dispatchers.IO) {
-                insertEDLGlobalDuLogement(idReservation, userText)
+            val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog)
+            builder.setTitle("Confirmation")
+            builder.setMessage("Etat des lieux de la pièces réalisé avec succès ! ")
+            builder.setPositiveButton("OK") { dialog, which ->
+                GlobalScope.launch(Dispatchers.IO) {
+                    try {
+                        insertEDLGlobalDuLogement(idReservation, userText)
+                        withContext(Dispatchers.Main) {
+                            val intent = Intent(this@ELESWrite, EtatLieuxSortieActivity::class.java)
+                            val jsonObject = JSONObject().apply {
+                                put("token", token)
+
+                            }
+                            val jsonString = jsonObject.toString()
+                            intent.putExtra("nom", nomValue)
+                            intent.putExtra("prenom", prenomValue)
+                            intent.putExtra("apiReponse", jsonString)
+                            startActivity(intent)
+                        }
+                    } catch (e: Exception) {
+                        println("Erreur lors de l'insertion de l'état des lieux: ${e.message}")
+                    }
+                }
+                dialog.dismiss()
             }
-        }*/
+            builder.setNegativeButton("Annuler") { dialog, which ->
+                dialog.dismiss()
+            }
+            val dialog = builder.create()
+            dialog.show()
+        }
     }
 
     private suspend fun insertEDLGlobalDuLogement(idReservation: Int, userText: String) {
@@ -75,7 +97,57 @@ class ELESWrite : AppCompatActivity() {
             }
         }
     }
+    private suspend fun marqueurPiece(idReservation: Int, piecesID: List<Int>){
+        return withContext(Dispatchers.IO){
+            println("ici")
+            try{
+                val token = gestionToken.getToken()
+                val url = URL("http://api.immomvc.varin.ovh/?action=marqueurEDLPieceSortie")
+                piecesID.forEach {idPiece ->
+                    val jsonObject = JSONObject().apply {
+                        put("token", token)
+                        put("idReservation", idReservation)
+                        put("idPiece", idPiece)
+                    }
+                    val httpURLConnection = url.openConnection() as HttpURLConnection
+                    httpURLConnection.requestMethod = "POST"
+                    httpURLConnection.setRequestProperty("Content-Type", "application/json")
+                    println("la")
+                    println(piecesID)
+                    println("MARQUEUR : $jsonObject ")
+                    val outputStream = httpURLConnection.outputStream
+                    outputStream.write(jsonObject.toString().toByteArray())
+                    outputStream.close()
+                    val responseCode = httpURLConnection.responseCode
+                    println("Response Code de MARQUEUR: $responseCode")
 
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        val inputStream = httpURLConnection.inputStream
+                        val response = inputStream.bufferedReader().use { it.readText() }
+                        val responseInt = response.trim().toInt()
+                        runOnUiThread {
+                            val containerPieces = findViewById<LinearLayout>(R.id.roomContainer)
+                            val pieceLayout = containerPieces.findViewById<View>(idPiece)
+                            val textViewSituationPiece = pieceLayout?.findViewWithTag<TextView>("situationPieceWele$idPiece")
+                            if (textViewSituationPiece != null) {
+                                if (responseInt == 1) {
+                                    textViewSituationPiece.text = "État des lieux fait"
+                                } else {
+                                    textViewSituationPiece.text = "État des lieux non fait"
+                                }
+                            } else {
+                                println("TextView not found for pieceId: $idPiece")
+                            }
+                        }
+                        println("Response de la requête : $response")
+                    } else {
+                        println("Erreur lors de la récupération des pièces avec EDL déjà fait: ${httpURLConnection.responseMessage}")
+                    }
+                }
+            }catch (e: Exception) {
+                println("Erreur lors de la récupération des pièces avec EDL déjà  fait:  ${e.message}")
+            }
+        }}
     private suspend fun retrievePieces(idBien: Int, idReservation: Int) {
         //Doit charger : la liste des pièces d'un bien choisis
         return withContext(Dispatchers.IO) {
@@ -138,7 +210,7 @@ class ELESWrite : AppCompatActivity() {
 
                             buttonPiece.setOnClickListener {
                                 val pieceId = it.tag as Int
-                                val intent = Intent(this@ELESWrite, ELEAWriteDetailsPieces::class.java)
+                                val intent = Intent(this@ELESWrite, ELESWriteDetailsPieces::class.java)
                                 intent.putExtra("piece_id", pieceId)
                                 intent.putExtra("idReservation", idReservation)
                                 intent.putExtra("idBien", idBien)

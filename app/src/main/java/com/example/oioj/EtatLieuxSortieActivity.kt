@@ -18,15 +18,20 @@ import java.net.URL
 
 class EtatLieuxSortieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val nomValue = intent.getStringExtra("nom")
+        val prenomValue = intent.getStringExtra("prenom")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.wels_etat_lieux_sortie)
-
+        val token = intent.getStringExtra("apiReponse")
+        // Récupération du bouton de retour et déclaration du listener
         val btnBack = findViewById<Button>(R.id.btnBack)
-
         btnBack.setOnClickListener {
-            onBackPressed()
+            val redirection = Intent(this, DashboardActivity::class.java)
+            startActivity(redirection)
         }
-        GlobalScope.launch {
+
+        // Appel de la fonction pour récupérer cles réservations
+        GlobalScope.launch(Dispatchers.Main) {
             retrieveReservations()
         }
     }
@@ -102,6 +107,7 @@ class EtatLieuxSortieActivity : AppCompatActivity() {
                                 val intent = Intent(this@EtatLieuxSortieActivity, ELESWrite::class.java)
                                 intent.putExtra("logement_id", id)
                                 intent.putExtra("bien_id", idBien)
+                                intent.putExtra("reservation_id", id)
                                 startActivity(intent)
                             }
 
