@@ -30,8 +30,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="379dp"
-        android:layout_height="803dp"
+        android:layout_width="387dp"
+        android:layout_height="648dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

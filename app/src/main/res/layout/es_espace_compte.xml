@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/PrimaryBackground"
     android:padding="16dp">
-    <!-- Titre -->
+
     <TextView
         android:id="@+id/txtTitreMonEspaceCompte"
         android:layout_width="wrap_content"
@@ -31,17 +32,182 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/leMenu"
-        android:layout_width="370dp"
-        android:layout_height="700dp"
-        android:layout_marginTop="25dp"
+        android:layout_width="380dp"
+        android:layout_height="669dp"
+        android:background="@color/PrimaryBackground"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/txtTitreMonEspaceCompte"
+        app:layout_constraintVertical_bias="0.0">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btnPolitiqueConfidentialite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/green_button_background"
+            android:text="Politique de confidentialité"
+            android:textColor="@color/txtWhite"
+            android:textSize="16sp" />
 
+        <Button
+            android:id="@+id/btnConditionsUtilisation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/green_button_background"
+            android:text="Conditions d'utilisation"
+            android:textColor="@color/txtWhite"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnMentionLegale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/green_button_background"
+            android:text="Mention Légale"
+            android:textColor="@color/txtWhite"
+            android:textSize="16sp" />
+
+        <!-- Conteneur pour les champs EditText -->
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="386dp"
+            android:layout_marginTop="55dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTitreModifier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="Modifier les informations du compte"
+                android:textColor="@color/YellowIcon"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <!-- Pour le numéro de téléphone -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:hint="Numéro de téléphone"
+                    android:inputType="phone"
+                    android:padding="10dp"
+                    android:textColor="@color/txtWhite"
+                    android:textColorHint="@color/txtWhite"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnModifierPhone"
+                    android:layout_width="42dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_icon"
+                    android:textColor="@color/txtWhite"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextMail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_weight="1"
+                    android:hint="Mail Utilisateur"
+                    android:inputType="textEmailAddress"
+                    android:padding="10dp"
+                    android:textColor="@color/txtWhite"
+                    android:textColorHint="@color/txtWhite"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnModifierMail"
+                    android:layout_width="42dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/edit_icon"
+                    android:textColor="@color/txtWhite"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextPassword1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_weight="1"
+                    android:hint="Saisir un nouveau mot de passe"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:textColor="@color/txtWhite"
+                    android:textColorHint="@color/txtWhite"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextPassword2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:hint="Confirmer le mot de passe"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:textColor="@color/txtWhite"
+                    android:textColorHint="@color/txtWhite"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:layout_width="42dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_icon"
+                    android:textColor="@color/txtWhite"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
