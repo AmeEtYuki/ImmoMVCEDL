@@ -11,33 +11,30 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
-        val token = intent.getStringExtra("apiReponse")
-        if (token != null){
+
+        var nomValue = ""
+        var prenomValue = ""
+        if (intent.getStringExtra("apiReponse") != null){
+                var token = intent.getStringExtra("apiReponse")
                 println("Contenu du token: $token")
                 val jsonObject = JSONObject(token)
-                val nomValue = jsonObject.getString("nom")
-                val prenomValue = jsonObject.getString("prenom")
+                nomValue = jsonObject.getString("nom")
+                prenomValue = jsonObject.getString("prenom")
                 if (nomValue == null && prenomValue == null){
-                    val nomValue = intent.getStringExtra("nom")
-                    val prenomValue = intent.getStringExtra("prenom")
+                    nomValue = intent.getStringExtra("nom").toString()
+                    prenomValue = intent.getStringExtra("prenom").toString()
                 }
                 println("$nomValue $prenomValue")
-                val inputUsername = findViewById<TextView>(R.id.txtNomUtilisateur)
-                inputUsername.text = "$nomValue $prenomValue"
 
                 val tokenValue = jsonObject.getString("token")
                 gestionToken.setToken(tokenValue)
-
-
-
         } else {
             println("token nul")
+            nomValue = intent.getStringExtra("nom").toString()
+            prenomValue = intent.getStringExtra("prenom").toString()
         }
-
-
-        val jsonObject = JSONObject(token)
-        val nomValue = jsonObject.getString("nom")
-        val prenomValue = jsonObject.getString("prenom")
+        val inputUsername = findViewById<TextView>(R.id.txtNomUtilisateur)
+        inputUsername.text = "$nomValue $prenomValue"
 
         val btnBackDash = findViewById<Button>(R.id.btnBackDash)
         btnBackDash.setOnClickListener {
