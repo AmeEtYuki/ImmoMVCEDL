@@ -55,10 +55,11 @@ class MonEspaceCompteActivity : AppCompatActivity() {
                     println("Les données récupérées : \n $reponse")
                     val leCompte = JSONObject(reponse)
                     withContext(Dispatchers.Main) {
+                        /*
                         val blocChamps = findViewById<ConstraintLayout>(R.id.leMenu)
                         val lyo = LayoutInflater.from(this@MonEspaceCompteActivity).inflate(R.layout.es_card_infpers, blocChamps, false)
                         lyo.findViewById<EditText>(R.id.editEmailUtilisateurEspaceCompte).setText(leCompte.getString("login"))
-                        blocChamps.addView(lyo)
+                        blocChamps.addView(lyo)*/
                     }
 
                 }
