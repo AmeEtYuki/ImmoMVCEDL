@@ -8,6 +8,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
@@ -70,13 +72,26 @@ class ELEAWrite : AppCompatActivity() {
             val dialog = builder.create()
             dialog.show()
         }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //Toast.makeText(this@ELESWriteDetailsPieces, "", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@ELEAWrite, EtatLieuxEntreeActivity::class.java)
+                intent.putExtra("nom", nomValue)
+                intent.putExtra("prenom", prenomValue)
+                startActivity(intent)
+                Toast.makeText(this@ELEAWrite, "Bouton retour appuyé, returs vers liste des EDL", Toast.LENGTH_SHORT).show()
+                // Si vous voulez le comportement par défaut du bouton retour, désactivez le callback temporairement et appelez super.onBackPressed()
+                // this.remove()
+                // onBackPressedDispatcher.onBackPressed()
+            }
+        })
     }
 
     private suspend fun insertEDLGlobalDuLogement(idReservation: Int, userText: String){
         return withContext(Dispatchers.IO){
             try{
                 val token = gestionToken.getToken()
-                val url = URL("http://api.immomvc.varin.ovh/?action=InsertEDLentree") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
+                val url = URL("http://api.immoMVC.varin.ovh/?action=InsertEDLentree") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -100,7 +115,7 @@ class ELEAWrite : AppCompatActivity() {
             try{
 
                 val token = gestionToken.getToken()
-                val url = URL("http://api.immomvc.varin.ovh/?action=piece")
+                val url = URL("http://api.immoMVC.varin.ovh/?action=piece")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -174,7 +189,7 @@ class ELEAWrite : AppCompatActivity() {
             println("ici")
             try{
                 val token = gestionToken.getToken()
-                val url = URL("http://api.immomvc.varin.ovh/?action=marqueurEDLPiece")
+                val url = URL("http://api.immoMVC.varin.ovh/?action=marqueurEDLPiece")
                 piecesID.forEach {idPiece ->
                     val jsonObject = JSONObject().apply {
                         put("token", token)

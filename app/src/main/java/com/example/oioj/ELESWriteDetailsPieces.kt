@@ -14,10 +14,13 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
 import java.net.HttpURLConnection
@@ -30,6 +33,7 @@ class ELESWriteDetailsPieces : AppCompatActivity() {
         private const val IMAGE_PICK_CODE = 1000
     }
     override fun onCreate(savedInstanceState: Bundle?) {
+        //rédaction état des lieux pièces.
         super.onCreate(savedInstanceState)
         setContentView(R.layout.wele_write_etat_lieux_piece)
 
@@ -42,18 +46,11 @@ class ELESWriteDetailsPieces : AppCompatActivity() {
         val idBien = intent.getIntExtra("idBien",-1)
         val idReservation = intent.getIntExtra("idReservation", -1)
         val idPiece = intent.getIntExtra("piece_id",-1)
+        val nomValue = intent.getStringExtra("nom")
+        val prenomValue = intent.getStringExtra("prenom")
         GlobalScope.launch(Dispatchers.IO){
             retrieveEquipement(idPiece)
         }
-
-        // Bouton Photo
-        val buttonAddPhoto = findViewById<Button>(R.id.buttonAddPhoto)
-        buttonAddPhoto.setOnClickListener {
-            selectImage()
-        }
-        val nomValue = intent.getStringExtra("nom")
-        val prenomValue = intent.getStringExtra("prenom")
-        // valider
         buttonValidate.setOnClickListener {
             GlobalScope.launch(Dispatchers.IO) {
                 insertEDLDetailsEquipement(idReservation, idPiece)
@@ -69,12 +66,33 @@ class ELESWriteDetailsPieces : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+        // Bouton Photo
+        val buttonAddPhoto = findViewById<Button>(R.id.buttonAddPhoto)
+        buttonAddPhoto.setOnClickListener {
+            selectImage()
+        }
+        //valider
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //Toast.makeText(this@ELESWriteDetailsPieces, "", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@ELESWriteDetailsPieces, ELESWrite::class.java)
+                intent.putExtra("reservation_id", idReservation)
+                intent.putExtra("bien_id", idBien)
+                intent.putExtra("nom", nomValue)
+                intent.putExtra("prenom", prenomValue)
+                Toast.makeText(this@ELESWriteDetailsPieces, "Bouton retour appuyé, returs vers liste des pièces", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                // Si vous voulez le comportement par défaut du bouton retour, désactivez le callback temporairement et appelez super.onBackPressed()
+                // this.remove()
+                // onBackPressedDispatcher.onBackPressed()
+            }
+        })
     }
 
     private suspend fun retrieveEquipement(idPiece: Int) {
         try {
             val token = gestionToken.getToken()
-            val url = URL("http://api.immomvc.varin.ovh/?action=recoverEquipementPiece")
+            val url = URL("http://api.immoMVC.varin.ovh/?action=recoverEquipementPiece")
             val httpURLConnection = url.openConnection() as HttpURLConnection
             httpURLConnection.requestMethod = "POST"
             httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -169,7 +187,7 @@ class ELESWriteDetailsPieces : AppCompatActivity() {
             try {
                 val token = gestionToken.getToken()
                 val url =
-                    URL("http://api.immomvc.varin.ovh/?action=writeEDLSEquipementPieceEquipement")
+                    URL("http://api.immoMVC.varin.ovh/?action=writeEDLSEquipementPieceEquipement")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -227,7 +245,7 @@ class ELESWriteDetailsPieces : AppCompatActivity() {
     private suspend fun addPhotoTo(idPiece: Int, idReservation: Int, imagePath: String) {
         try {
             val token = gestionToken.getToken()
-            val url = URL("https://api.immomvc.varin.ovh/?action=addPhotoWELESortie")
+            val url = URL("https://api.immoMVC.varin.ovh/?action=addPhotoWELESortie")
             val httpURLConnection = url.openConnection() as HttpURLConnection
             httpURLConnection.requestMethod = "POST"
             httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -254,7 +272,7 @@ class ELESWriteDetailsPieces : AppCompatActivity() {
     private suspend fun addCommentaireGlobalToPiece(idReservation: Int,idPiece: Int) {
         try {
             val token = gestionToken.getToken()
-            val url = URL("http://api.immomvc.varin.ovh/?action=writeEDLSEquipementPieceEquipement")
+            val url = URL("http://api.immoMVC.varin.ovh/?action=writeEDLSEquipementPieceEquipement")
             val httpURLConnection = url.openConnection() as HttpURLConnection
             httpURLConnection.requestMethod = "POST"
             httpURLConnection.setRequestProperty("Content-Type", "application/json")

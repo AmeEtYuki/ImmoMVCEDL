@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     private suspend fun authenticate(mail: String, mdp: String): Boolean {
         return withContext(Dispatchers.IO) {
             try {
-                val url = URL("http://api.immomvc.varin.ovh/?action=login")
+                val url = URL("http://api.immoMVC.varin.ovh/?action=login")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")

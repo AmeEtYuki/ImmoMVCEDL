@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
@@ -21,10 +23,11 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class ELESWrite : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //état des lieux - sortie - rédaction EDL logement
         setContentView(R.layout.wele_write_etat_lieux_entree)
-
         // Ici on récupère le logement ID qu'on a envoyer sur la page ETAT LIEUX ENTREE ACTIVITY
         val idReservation = intent.getIntExtra("reservation_id",-1)
         val idBien = intent.getIntExtra("bien_id", -1)
@@ -67,6 +70,20 @@ class ELESWrite : AppCompatActivity() {
             builder.setNegativeButton("Annuler") { dialog, which ->
                 dialog.dismiss()
             }
+            onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    //Toast.makeText(this@ELESWriteDetailsPieces, "", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@ELESWrite, EtatLieuxSortieActivity::class.java)
+                    intent.putExtra("nom", nomValue)
+                    intent.putExtra("prenom", prenomValue)
+                    intent.putExtra("token", token)
+                    startActivity(intent)
+                    Toast.makeText(this@ELESWrite, "Bouton retour appuyé, returs vers liste des EDL", Toast.LENGTH_SHORT).show()
+                    // Si vous voulez le comportement par défaut du bouton retour, désactivez le callback temporairement et appelez super.onBackPressed()
+                    // this.remove()
+                    // onBackPressedDispatcher.onBackPressed()
+                }
+            })
             val dialog = builder.create()
             dialog.show()
         }
@@ -76,7 +93,7 @@ class ELESWrite : AppCompatActivity() {
         return withContext(Dispatchers.IO){
             try{
                 val token = gestionToken.getToken()
-                val url = URL("https://api.immomvc.varin.ovh/?action=InsertEDLsortie") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
+                val url = URL("https://api.immoMVC.varin.ovh/?action=InsertEDLsortie") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -102,7 +119,7 @@ class ELESWrite : AppCompatActivity() {
             println("ici")
             try{
                 val token = gestionToken.getToken()
-                val url = URL("http://api.immomvc.varin.ovh/?action=marqueurEDLPieceSortie")
+                val url = URL("http://api.immoMVC.varin.ovh/?action=marqueurEDLPieceSortie")
                 piecesID.forEach {idPiece ->
                     val jsonObject = JSONObject().apply {
                         put("token", token)
@@ -155,7 +172,7 @@ class ELESWrite : AppCompatActivity() {
 
                 val token = gestionToken.getToken();
 
-                val url = URL("https://api.immomvc.varin.ovh/?action=piece")
+                val url = URL("https://api.immoMVC.varin.ovh/?action=piece")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -214,6 +231,7 @@ class ELESWrite : AppCompatActivity() {
                                 intent.putExtra("piece_id", pieceId)
                                 intent.putExtra("idReservation", idReservation)
                                 intent.putExtra("idBien", idBien)
+
                                 startActivity(intent)
                             }
                         }

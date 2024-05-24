@@ -11,28 +11,30 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
-
-
         val token = intent.getStringExtra("apiReponse")
         if (token != null){
-            println("Contenu du token: $token")
-            val jsonObject = JSONObject(token)
-            val nomValue = jsonObject.getString("nom")
-            val prenomValue = jsonObject.getString("prenom")
-            if (nomValue == null && prenomValue == null){
-                val nomValue = intent.getStringExtra("nom")
-                val prenomValue = intent.getStringExtra("prenom")
-            }
-            println("$nomValue $prenomValue")
-            val inputUsername = findViewById<TextView>(R.id.txtNomUtilisateur)
-            inputUsername.text = "$nomValue $prenomValue"
+                println("Contenu du token: $token")
+                val jsonObject = JSONObject(token)
+                val nomValue = jsonObject.getString("nom")
+                val prenomValue = jsonObject.getString("prenom")
+                if (nomValue == null && prenomValue == null){
+                    val nomValue = intent.getStringExtra("nom")
+                    val prenomValue = intent.getStringExtra("prenom")
+                }
+                println("$nomValue $prenomValue")
+                val inputUsername = findViewById<TextView>(R.id.txtNomUtilisateur)
+                inputUsername.text = "$nomValue $prenomValue"
 
-            val tokenValue = jsonObject.getString("token")
-            gestionToken.setToken(tokenValue)
+                val tokenValue = jsonObject.getString("token")
+                gestionToken.setToken(tokenValue)
+
+
 
         } else {
             println("token nul")
         }
+
+
         val jsonObject = JSONObject(token)
         val nomValue = jsonObject.getString("nom")
         val prenomValue = jsonObject.getString("prenom")

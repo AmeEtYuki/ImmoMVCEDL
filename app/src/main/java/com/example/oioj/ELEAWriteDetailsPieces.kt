@@ -14,6 +14,8 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -70,6 +72,21 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
             }
 
         }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //Toast.makeText(this@ELESWriteDetailsPieces, "", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@ELEAWriteDetailsPieces, ELEAWrite::class.java)
+                intent.putExtra("reservation_id", idReservation)
+                intent.putExtra("bien_id", idBien)
+                intent.putExtra("nom", nomValue)
+                intent.putExtra("prenom", prenomValue)
+                Toast.makeText(this@ELEAWriteDetailsPieces, "Bouton retour appuyé, returs vers liste des pièces", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                // Si vous voulez le comportement par défaut du bouton retour, désactivez le callback temporairement et appelez super.onBackPressed()
+                // this.remove()
+                // onBackPressedDispatcher.onBackPressed()
+            }
+        })
     }
 
     private fun selectImage() {

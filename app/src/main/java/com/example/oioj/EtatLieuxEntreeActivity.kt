@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -24,16 +26,26 @@ class EtatLieuxEntreeActivity : AppCompatActivity() {
         setContentView(R.layout.wele_etat_lieux_entree)
         val token = intent.getStringExtra("apiReponse")
         // Récupération du bouton de retour et déclaration du listener
-        val btnBack = findViewById<Button>(R.id.btnBack)
-        btnBack.setOnClickListener {
-            val redirection = Intent(this, DashboardActivity::class.java)
-            startActivity(redirection)
-        }
 
         // Appel de la fonction pour récupérer cles réservations
         GlobalScope.launch(Dispatchers.Main) {
             retrieveReservations()
         }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //Toast.makeText(this@ELESWriteDetailsPieces, "", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@EtatLieuxEntreeActivity, DashboardActivity::class.java)
+                intent.putExtra("nom", nomValue)
+                intent.putExtra("prenom", prenomValue)
+                intent.putExtra("token", token)
+                startActivity(intent)
+                Toast.makeText(this@EtatLieuxEntreeActivity, "Bouton retour appuyé, returs vers MainActivity", Toast.LENGTH_SHORT).show()
+                // Si vous voulez le comportement par défaut du bouton retour, désactivez le callback temporairement et appelez super.onBackPressed()
+                // this.remove()
+                // onBackPressedDispatcher.onBackPressed()
+            }
+        })
     }
 
     private suspend fun retrieveReservations() {
@@ -44,7 +56,7 @@ class EtatLieuxEntreeActivity : AppCompatActivity() {
                 println("Le token retrouvé page Rédigé état des lieux est : $token")
 
                 // Connexion à l'API pour récupérer les réservations
-                val url = URL("http://api.immomvc.varin.ovh/?action=writeEDLentree")
+                val url = URL("http://api.immoMVC.varin.ovh/?action=writeEDLentree")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")

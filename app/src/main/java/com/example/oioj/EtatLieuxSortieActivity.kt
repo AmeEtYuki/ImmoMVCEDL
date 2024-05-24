@@ -2,10 +2,13 @@ package com.example.oioj
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -18,6 +21,7 @@ import java.net.URL
 
 class EtatLieuxSortieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        //liste des réservations
         val nomValue = intent.getStringExtra("nom")
         val prenomValue = intent.getStringExtra("prenom")
         super.onCreate(savedInstanceState)
@@ -29,23 +33,33 @@ class EtatLieuxSortieActivity : AppCompatActivity() {
             val redirection = Intent(this, DashboardActivity::class.java)
             startActivity(redirection)
         }
-
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //Toast.makeText(this@ELESWriteDetailsPieces, "", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@EtatLieuxSortieActivity, DashboardActivity::class.java)
+                intent.putExtra("nom", nomValue)
+                intent.putExtra("prenom", prenomValue)
+                intent.putExtra("token", token)
+                startActivity(intent)
+                Toast.makeText(this@EtatLieuxSortieActivity, "Bouton retour appuyé, returs vers MainActivity", Toast.LENGTH_SHORT).show()
+                // Si vous voulez le comportement par défaut du bouton retour, désactivez le callback temporairement et appelez super.onBackPressed()
+                // this.remove()
+                // onBackPressedDispatcher.onBackPressed()
+            }
+        })
         // Appel de la fonction pour récupérer cles réservations
         GlobalScope.launch(Dispatchers.Main) {
             retrieveReservations()
         }
     }
 
-    private fun insertEDLDetailsEquipement(idReservation: Int, idPiece: Int) {
-
-    }
     private suspend fun retrieveReservations() {
         return withContext(Dispatchers.IO) {
             try {
 
                 val token = gestionToken.getToken();
 
-                val url = URL("https://api.immomvc.varin.ovh/?action=getELDsortie")
+                val url = URL("https://api.immoMVC.varin.ovh/?action=getELDsortie")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -105,7 +119,7 @@ class EtatLieuxSortieActivity : AppCompatActivity() {
 
                             btnEtatLieux.setOnClickListener{
                                 val intent = Intent(this@EtatLieuxSortieActivity, ELESWrite::class.java)
-                                intent.putExtra("logement_id", id)
+                                intent.putExtra("logement_id", idBien)
                                 intent.putExtra("bien_id", idBien)
                                 intent.putExtra("reservation_id", id)
                                 startActivity(intent)
