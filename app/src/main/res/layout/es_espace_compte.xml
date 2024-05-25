@@ -111,7 +111,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:hint="Nom"
-                    android:inputType="phone"
+                    android:inputType="text"
                     android:padding="10dp"
                     android:textColor="@color/txtWhite"
                     android:textColorHint="@color/txtWhite"

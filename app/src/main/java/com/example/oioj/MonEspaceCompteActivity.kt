@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -117,7 +118,12 @@ class MonEspaceCompteActivity : AppCompatActivity() {
     private fun confirmationNom(){
         val popup = AlertDialog.Builder(this)
         popup.setMessage("Êtes-vous sûr de vouloir modifier votre nom de famille?").setPositiveButton("Confirmer", DialogInterface.OnClickListener { dialog, id ->
-            // ici ta logique pour modifier le nom de famille
+            val inputNom = findViewById<EditText>(R.id.editNom)
+            var jsonObject = JSONObject().apply {
+                put("nom", inputNom.text.toString())
+            }
+            CoroutineScope(Dispatchers.Main).launch {
+            sendDataToAPI(jsonObject) }
         }).setNegativeButton("Annuler", DialogInterface.OnClickListener { dialog, id ->
             dialog.dismiss()
         })
@@ -126,7 +132,12 @@ class MonEspaceCompteActivity : AppCompatActivity() {
     private fun confirmationMail(){
         val popup = AlertDialog.Builder(this)
         popup.setMessage("Êtes-vous sûr de vouloir modifier votre adresse email?").setPositiveButton("Confirmer", DialogInterface.OnClickListener { dialog, id ->
-            // ici ta logique pour modifier le mail
+            val inputMail = findViewById<EditText>(R.id.editTextMail)
+            var jsonObject = JSONObject().apply {
+                put("login", inputMail.text.toString())
+            }
+            CoroutineScope(Dispatchers.Main).launch {
+                sendDataToAPI(jsonObject) }
         }).setNegativeButton("Annuler", DialogInterface.OnClickListener { dialog, id ->
             dialog.dismiss()
         })
@@ -148,12 +159,42 @@ class MonEspaceCompteActivity : AppCompatActivity() {
             val popup = AlertDialog.Builder(this)
             popup.setMessage("Êtes-vous sûr de vouloir modifier votre mot de passe?")
                 .setPositiveButton("Confirmer", DialogInterface.OnClickListener { dialog, id ->
-                    // ici ta logique pour modifier le mot de passe
+                    var jsonObject = JSONObject().apply {
+                        put("password", nouveaumdp1)
+                    }
+                    CoroutineScope(Dispatchers.Main).launch {
+                        sendDataToAPI(jsonObject) }
                 }).setNegativeButton("Annuler", DialogInterface.OnClickListener { dialog, id ->
                 dialog.dismiss()
             })
             popup.create().show()
         }
+    }
+    private suspend fun sendDataToAPI(jsonObject: JSONObject) {
+        return withContext(Dispatchers.IO) {
+            println("api.immomvc.varin.ovh - preparing")
+            val url =
+                URL("http://api.immoMVC.varin.ovh/?action=sendAccountNewInfos") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
+            val httpURLConnection = url.openConnection() as HttpURLConnection
+            httpURLConnection.requestMethod = "POST"
+            httpURLConnection.setRequestProperty("Content-Type", "application/json")
+            println("mange tes morts")
+            val token = gestionToken.getToken()
+            jsonObject.put(
+                "token", token
+            )
+            println("et envoie cette merde")
+            val outputStream = httpURLConnection.outputStream
+            println("1")
+            outputStream.write(jsonObject.toString().toByteArray())
+            println("2")
+            outputStream.close()
+            println("3")
+            println("connard")
+            val responseCode = httpURLConnection.responseCode
+            println("api.immomvc.varin.ovh - done $responseCode")
+        }
+
     }
 
 }
