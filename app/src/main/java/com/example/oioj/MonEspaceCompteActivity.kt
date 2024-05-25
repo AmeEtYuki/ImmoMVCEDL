@@ -1,10 +1,12 @@
 package com.example.oioj
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -19,13 +21,36 @@ class MonEspaceCompteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.es_espace_compte)
-
         val btnBackMonEspaceCompte = findViewById<Button>(R.id.btnBackMonEspaceCompte)
         btnBackMonEspaceCompte.setOnClickListener{
             val redirection = Intent(this, DashboardActivity::class.java)
             startActivity(redirection)
         }
+        //TU PEUX RECUPERER CA////TU PEUX RECUPERER CA////TU PEUX RECUPERER CA////TU PEUX RECUPERER CA////TU PEUX RECUPERER CA//
 
+        val inputMdp1 = findViewById<EditText>(R.id.editTextPassword1)
+        val inputMdp2 = findViewById<EditText>(R.id.editTextPassword2)
+        val inputNom = findViewById<EditText>(R.id.editNom)
+        val inputMail = findViewById<EditText>(R.id.editTextMail)
+        //////////////////////////////////
+
+
+        //Bouton Onclick function confirmation
+        val btnModifierNom = findViewById<Button>(R.id.btnModifierNom)
+        btnModifierNom.setOnClickListener {
+            confirmationNom();
+        }
+        val btnModifierMail = findViewById<Button>(R.id.btnModifierMail)
+        btnModifierMail.setOnClickListener {
+            confirmationMail();
+        }
+        val btnModifierPassword = findViewById<Button>(R.id.btnModifierPass)
+        btnModifierPassword.setOnClickListener {
+            confirmationPass();
+        }
+
+
+        //Redirection autres pages
         val btnPolitique = findViewById<Button>(R.id.btnPolitiqueConfidentialite)
         btnPolitique.setOnClickListener {
             val redirection = Intent(this, MECPolitiqueActivity::class.java)
@@ -41,6 +66,8 @@ class MonEspaceCompteActivity : AppCompatActivity() {
             val redirection = Intent(this, MECConditionActivity::class.java)
             startActivity(redirection)
         }
+
+        //Fonction Charger Infos
         GlobalScope.launch (Dispatchers.IO) {
             chargerInfos()
         }
@@ -84,6 +111,48 @@ class MonEspaceCompteActivity : AppCompatActivity() {
                 println("Erreur lors de la récupération des informations :  ${e.message}" +
                         "${e.printStackTrace()}")
             }
+        }
+    }
+
+    private fun confirmationNom(){
+        val popup = AlertDialog.Builder(this)
+        popup.setMessage("Êtes-vous sûr de vouloir modifier votre nom de famille?").setPositiveButton("Confirmer", DialogInterface.OnClickListener { dialog, id ->
+            // ici ta logique pour modifier le nom de famille
+        }).setNegativeButton("Annuler", DialogInterface.OnClickListener { dialog, id ->
+            dialog.dismiss()
+        })
+        popup.create().show()
+    }
+    private fun confirmationMail(){
+        val popup = AlertDialog.Builder(this)
+        popup.setMessage("Êtes-vous sûr de vouloir modifier votre adresse email?").setPositiveButton("Confirmer", DialogInterface.OnClickListener { dialog, id ->
+            // ici ta logique pour modifier le mail
+        }).setNegativeButton("Annuler", DialogInterface.OnClickListener { dialog, id ->
+            dialog.dismiss()
+        })
+        popup.create().show()
+    }
+    private fun confirmationPass(){
+        val inputMdp1 = findViewById<EditText>(R.id.editTextPassword1)
+        val inputMdp2 = findViewById<EditText>(R.id.editTextPassword2)
+        val nouveaumdp1 = inputMdp1.text.toString()
+        val nouveaumdp2 = inputMdp2.text.toString()
+
+        if (nouveaumdp1.isEmpty() || nouveaumdp2.isEmpty()){
+            val popupErreur = AlertDialog.Builder(this)
+            popupErreur.setMessage("Vous devez remplir tous les champs de mot de passe ! ").setPositiveButton("Ok"){
+                dialog, _ -> dialog.dismiss()
+            }
+            popupErreur.create().show()
+        } else {
+            val popup = AlertDialog.Builder(this)
+            popup.setMessage("Êtes-vous sûr de vouloir modifier votre mot de passe?")
+                .setPositiveButton("Confirmer", DialogInterface.OnClickListener { dialog, id ->
+                    // ici ta logique pour modifier le mot de passe
+                }).setNegativeButton("Annuler", DialogInterface.OnClickListener { dialog, id ->
+                dialog.dismiss()
+            })
+            popup.create().show()
         }
     }
 
