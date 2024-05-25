@@ -33,7 +33,7 @@ class MonEspaceCompteActivity : AppCompatActivity() {
         }
         val btnMention = findViewById<Button>(R.id.btnMentionLegale)
         btnMention.setOnClickListener {
-            val redirection = Intent(this, MECMentionActivity::class.java)it a
+            val redirection = Intent(this, MECMentionActivity::class.java)
             startActivity(redirection)
         }
         val btnCondition = findViewById<Button>(R.id.btnConditionsUtilisation)
