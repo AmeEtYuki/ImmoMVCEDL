@@ -41,7 +41,6 @@ class MonEspaceCompteActivity : AppCompatActivity() {
             val redirection = Intent(this, MECConditionActivity::class.java)
             startActivity(redirection)
         }
-
         GlobalScope.launch (Dispatchers.IO) {
             chargerInfos()
         }

@@ -105,12 +105,12 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/editTextPhone"
+                    android:id="@+id/editNom"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
-                    android:hint="Numéro de téléphone"
+                    android:hint="Nom"
                     android:inputType="phone"
                     android:padding="10dp"
                     android:textColor="@color/txtWhite"
