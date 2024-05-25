@@ -26,10 +26,28 @@ class MonEspaceCompteActivity : AppCompatActivity() {
             startActivity(redirection)
         }
 
+        val btnPolitique = findViewById<Button>(R.id.btnPolitiqueConfidentialite)
+        btnPolitique.setOnClickListener {
+            val redirection = Intent(this, MECPolitiqueActivity::class.java)
+            startActivity(redirection)
+        }
+        val btnMention = findViewById<Button>(R.id.btnMentionLegale)
+        btnMention.setOnClickListener {
+            val redirection = Intent(this, MECMentionActivity::class.java)it a
+            startActivity(redirection)
+        }
+        val btnCondition = findViewById<Button>(R.id.btnConditionsUtilisation)
+        btnCondition.setOnClickListener {
+            val redirection = Intent(this, MECConditionActivity::class.java)
+            startActivity(redirection)
+        }
+
         GlobalScope.launch (Dispatchers.IO) {
             chargerInfos()
         }
     }
+
+
     private suspend fun chargerInfos() {
         return withContext(Dispatchers.IO) {
             try {

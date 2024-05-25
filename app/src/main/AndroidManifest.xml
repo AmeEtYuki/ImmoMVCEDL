@@ -34,6 +34,9 @@
         <activity android:name=".ELEAWrite"/>
         <activity android:name=".ELESWrite"/>
 
+        <activity android:name=".MECConditionActivity"/>
+        <activity android:name=".MECMentionActivity"/>
+        <activity android:name=".MECPolitiqueActivity"/>
 
     </application>
 
