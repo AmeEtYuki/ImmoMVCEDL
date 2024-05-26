@@ -59,7 +59,7 @@ class EtatLieuxSortieActivity : AppCompatActivity() {
 
                 val token = gestionToken.getToken();
 
-                val url = URL("https://api.immoMVC.varin.ovh/?action=getELDsortie")
+                val url = URL("https://api.friedrichalyssa.com/?action=getELDsortie")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")

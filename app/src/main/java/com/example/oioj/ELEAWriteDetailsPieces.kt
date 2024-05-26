@@ -121,7 +121,7 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
     private suspend fun retrieveEquipement(idPiece: Int) {
         try {
             val token = gestionToken.getToken()
-            val url = URL("http://api.immomvc.varin.ovh/?action=recoverEquipementPiece")
+            val url = URL("https://api.friedrichalyssa.com/?action=recoverEquipementPiece")
             val httpURLConnection = url.openConnection() as HttpURLConnection
             httpURLConnection.requestMethod = "POST"
             httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -214,7 +214,7 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
             try {
                 val token = gestionToken.getToken()
                 val url =
-                    URL("http://api.immomvc.varin.ovh/?action=writeEDLEquipementPieceEquipement")
+                    URL("https://api.friedrichalyssa.com/?action=writeEDLEquipementPieceEquipement")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -243,7 +243,7 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
     private suspend fun addPhotoTo(idPiece: Int, idReservation: Int, imagePath: String) {
         try {
             val token = gestionToken.getToken()
-            val url = URL("http://api.immomvc.varin.ovh/?action=addPhotoWELEEntree")
+            val url = URL("https://api.friedrichalyssa.com/?action=addPhotoWELEEntree")
             val httpURLConnection = url.openConnection() as HttpURLConnection
             httpURLConnection.requestMethod = "POST"
             httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -270,7 +270,7 @@ class ELEAWriteDetailsPieces : AppCompatActivity() {
     private suspend fun addCommentaireGlobalToPiece(idReservation: Int,idPiece: Int) {
         try {
             val token = gestionToken.getToken()
-            val url = URL("http://api.immomvc.varin.ovh/?action=addCommentaireGlobalToPiece")
+            val url = URL("https://api.friedrichalyssa.com/?action=addCommentaireGlobalToPiece")
             val httpURLConnection = url.openConnection() as HttpURLConnection
             httpURLConnection.requestMethod = "POST"
             httpURLConnection.setRequestProperty("Content-Type", "application/json")

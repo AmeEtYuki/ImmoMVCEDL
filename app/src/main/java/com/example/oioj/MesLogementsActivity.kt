@@ -36,7 +36,7 @@ class MesLogementsActivity : AppCompatActivity() {
         return withContext(Dispatchers.IO) {
             try {
                 val token = gestionToken.getToken()
-                val url = URL("http://api.immomvc.varin.ovh/?action=bien")
+                val url = URL("https://api.friedrichalyssa.com/?action=bien")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")

@@ -36,7 +36,7 @@ class MesReservationsActivity : AppCompatActivity() {
         return withContext(Dispatchers.IO) {
             try{
                 val token = gestionToken.getToken()
-                val url = URL("http://api.immomvc.varin.ovh/?action=getProprioReserv")
+                val url = URL("https://api.friedrichalyssa.com/?action=getProprioReserv")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")

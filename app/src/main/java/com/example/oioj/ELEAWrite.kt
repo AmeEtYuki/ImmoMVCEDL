@@ -91,7 +91,7 @@ class ELEAWrite : AppCompatActivity() {
         return withContext(Dispatchers.IO){
             try{
                 val token = gestionToken.getToken()
-                val url = URL("http://api.immoMVC.varin.ovh/?action=InsertEDLentree") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
+                val url = URL("https://api.friedrichalyssa.com/?action=InsertEDLentree") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -115,7 +115,7 @@ class ELEAWrite : AppCompatActivity() {
             try{
 
                 val token = gestionToken.getToken()
-                val url = URL("http://api.immoMVC.varin.ovh/?action=piece")
+                val url = URL("https://api.friedrichalyssa.com/?action=piece")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -189,7 +189,7 @@ class ELEAWrite : AppCompatActivity() {
             println("ici")
             try{
                 val token = gestionToken.getToken()
-                val url = URL("http://api.immoMVC.varin.ovh/?action=marqueurEDLPiece")
+                val url = URL("https://api.friedrichalyssa.com/?action=marqueurEDLPiece")
                 piecesID.forEach {idPiece ->
                     val jsonObject = JSONObject().apply {
                         put("token", token)

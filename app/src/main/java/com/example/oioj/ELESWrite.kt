@@ -93,7 +93,7 @@ class ELESWrite : AppCompatActivity() {
         return withContext(Dispatchers.IO){
             try{
                 val token = gestionToken.getToken()
-                val url = URL("https://api.immoMVC.varin.ovh/?action=InsertEDLsortie") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
+                val url = URL("https://api.friedrichalyssa.com/?action=InsertEDLsortie") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -119,7 +119,7 @@ class ELESWrite : AppCompatActivity() {
             println("ici")
             try{
                 val token = gestionToken.getToken()
-                val url = URL("http://api.immoMVC.varin.ovh/?action=marqueurEDLPieceSortie")
+                val url = URL("https://api.friedrichalyssa.com/?action=marqueurEDLPieceSortie")
                 piecesID.forEach {idPiece ->
                     val jsonObject = JSONObject().apply {
                         put("token", token)
@@ -172,7 +172,7 @@ class ELESWrite : AppCompatActivity() {
 
                 val token = gestionToken.getToken();
 
-                val url = URL("https://api.immoMVC.varin.ovh/?action=piece")
+                val url = URL("https://api.friedrichalyssa.com/?action=piece")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")

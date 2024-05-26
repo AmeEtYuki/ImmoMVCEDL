@@ -56,7 +56,7 @@ class EtatLieuxEntreeActivity : AppCompatActivity() {
                 println("Le token retrouvé page Rédigé état des lieux est : $token")
 
                 // Connexion à l'API pour récupérer les réservations
-                val url = URL("http://api.immoMVC.varin.ovh/?action=writeEDLentree")
+                val url = URL("https://api.friedrichalyssa.com/?action=writeEDLentree")
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")

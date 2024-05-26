@@ -80,7 +80,7 @@ class MonEspaceCompteActivity : AppCompatActivity() {
             try {
                 //récupération des informations du compte
                 val token = gestionToken.getToken()
-                val url = URL("https://api.immomvc.varin.ovh/?action=getAccountInfos") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
+                val url = URL("https://api.friedrichalyssa.com/?action=getAccountInfos") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
                 val httpURLConnection = url.openConnection() as HttpURLConnection
                 httpURLConnection.requestMethod = "POST"
                 httpURLConnection.setRequestProperty("Content-Type", "application/json")
@@ -100,6 +100,12 @@ class MonEspaceCompteActivity : AppCompatActivity() {
                     println("Les données récupérées : \n $reponse")
                     val leCompte = JSONObject(reponse)
                     withContext(Dispatchers.Main) {
+                        val inputMdp1 = findViewById<EditText>(R.id.editTextPassword1)
+                        val inputMdp2 = findViewById<EditText>(R.id.editTextPassword2)
+                        val inputNom = findViewById<EditText>(R.id.editNom)
+                        val inputMail = findViewById<EditText>(R.id.editTextMail)
+
+                        //inputMail.text = leCompte.getString("login")
                         /*
                         val blocChamps = findViewById<ConstraintLayout>(R.id.leMenu)
                         val lyo = LayoutInflater.from(this@MonEspaceCompteActivity).inflate(R.layout.es_card_infpers, blocChamps, false)
@@ -174,7 +180,7 @@ class MonEspaceCompteActivity : AppCompatActivity() {
         return withContext(Dispatchers.IO) {
             println("api.immomvc.varin.ovh - preparing")
             val url =
-                URL("http://api.immoMVC.varin.ovh/?action=sendAccountNewInfos") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
+                URL("https://api.friedrichalyssa.com/?action=sendAccountNewInfos") //////////////////////////// Mettre une action ZEBI sinon sa marchera pas connasse
             val httpURLConnection = url.openConnection() as HttpURLConnection
             httpURLConnection.requestMethod = "POST"
             httpURLConnection.setRequestProperty("Content-Type", "application/json")
