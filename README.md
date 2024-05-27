@@ -20,11 +20,11 @@ Après vous être connecté vous accédez à l'écran d'accueil, plusieurs optio
 
 1- Options disponibles
 
-  Rédiger État des Lieux : Accès à la rédaction des états des lieux d'entrée et de sortie.
-  Mes Logements : Voir et gérer vos logements.
-  Mes Réservations : Accéder à la liste de vos réservations.
-  Mon Compte : Gérer vos informations personnelles.
-  Mes États des Lieux : Voir les états des lieux précédemment rédigés.
+  -Rédiger État des Lieux : Accès à la rédaction des états des lieux d'entrée et de sortie.
+  -Mes Logements : Voir et gérer vos logements.
+  -Mes Réservations : Accéder à la liste de vos réservations.
+  -Mon Compte : Gérer vos informations personnelles.
+  -Mes États des Lieux : Voir les états des lieux précédemment rédigés.
 
 
 
