@@ -99,13 +99,15 @@ class MonEspaceCompteActivity : AppCompatActivity() {
                     val reponse = inputStream.bufferedReader().use { it.readText() }
                     println("Les données récupérées : \n $reponse")
                     val leCompte = JSONObject(reponse)
+                    val inputMail = findViewById<EditText>(R.id.editTextMail)
+                    val inputNom = findViewById<EditText>(R.id.editNom)
+                    val nom = leCompte.getString("nom")
+                    inputNom.setText("$nom")
+                    inputMail.setText("${leCompte.getString("login")}")
                     withContext(Dispatchers.Main) {
-                        val inputMdp1 = findViewById<EditText>(R.id.editTextPassword1)
-                        val inputMdp2 = findViewById<EditText>(R.id.editTextPassword2)
-                        val inputNom = findViewById<EditText>(R.id.editNom)
-                        val inputMail = findViewById<EditText>(R.id.editTextMail)
 
-                        //inputMail.text = leCompte.getString("login")
+                        val inputNom = findViewById<EditText>(R.id.editNom)
+
                         /*
                         val blocChamps = findViewById<ConstraintLayout>(R.id.leMenu)
                         val lyo = LayoutInflater.from(this@MonEspaceCompteActivity).inflate(R.layout.es_card_infpers, blocChamps, false)

@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                     val reponse = inputStream.bufferedReader().use { it.readText() }
                     println(reponse)
                     val contentReponse = JSONObject(reponse)
-                    println(contentReponse)
+                    println("response from apo : " + contentReponse)
                     val intent = Intent(this@MainActivity, DashboardActivity::class.java)
                     intent.putExtra("apiReponse",contentReponse.toString())
                     startActivity(intent)
